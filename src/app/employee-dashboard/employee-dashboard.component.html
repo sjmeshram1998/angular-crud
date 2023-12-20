@@ -1,0 +1,94 @@
+<!-- navbar starts -->
+<nav>
+    <div class="navbar bg-primary">
+        <div class="container-fluid">
+            <h3 class="text-white">AngularCrud</h3>
+        <div class="d-flex">
+            <button type="button" (click)="clickAddEmployee()" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Add User</button>
+        </div>
+
+        </div>
+    </div>
+</nav>
+<!-- navbar ends -->
+<!-- table starts -->
+<table class="table table-bordered mt-3">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Username</th>
+            <!-- <th>Password</th> -->
+            <th>Email</th>
+            <th>Role</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let row of allEmployeeData">
+            <td>{{row.u_id}}</td>
+            <td>{{row.user_name}}</td>
+            <!-- <td>{{row.password}}</td> -->
+            <td>{{row.e_mail}}</td>
+            <td>{{row.role}}</td>
+            <td>{{row.status_toggle}}</td>
+            <td>
+                <button (click)="Onedit(row)" class="btn btn-info"  data-bs-toggle="modal" data-bs-target="#exampleModal" >Edit</button>
+                <button (click)="deleteUserDetails(row)" class="btn btn-danger mx-3" >Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<!-- table ends -->
+  
+  <!-- Modal starts-->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Employee Details</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <!-- form starts -->
+            <form [formGroup]="loginForm">
+                <div class="mb-3">
+                    <label for="user_name" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="user_name" formControlName="user_name">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" formControlName="password">
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label">Email address</label>
+                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="e_mail">
+                </div>
+                <div class="mb-3">
+                    <label for="role" class="form-label">Role</label>
+                    <input type="text" class="form-control" id="role" formControlName="role">
+                </div>
+                <div class="mb-3">
+                    <label for="status_toggle" class="form-label">Status</label>
+                    <select class="form-select" aria-label="Default select example" id="status_toggle" formControlName="status_toggle">
+                        <option value="True">True</option>
+                        <option value="False">False</option>
+                      </select>
+                    <!-- <label for="status_toggle" class="form-label">Status</label>
+                    <input type="text" class="form-control" id="status_toggle" formControlName="status_toggle"> -->
+                </div>
+               
+              </form>
+              <!-- form ends -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="cancel" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+          <button type="button" *ngIf="showAdd" (click)="postEmployeeDetails()" class="btn btn-primary">Add User</button>
+
+          <button type="button" *ngIf="showUpdate" (click)="updateEmployeeDetails()" class="btn btn-primary" >Update User</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal ends -->
